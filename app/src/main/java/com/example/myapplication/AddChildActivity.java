@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.content.Context;
+
+import com.example.myapplication.Utils.FirebaseDBUtil;
 import com.example.myapplication.model.Child;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,7 +25,7 @@ public class AddChildActivity extends AppCompatActivity {
      * This is a reference to the root of our Firebase. With this object, we can access any child
      * information in the database.
      */
-    private FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDB = FirebaseDBUtil.getDatabase();
     /**
      * Using the key, "child_info", we can access a reference to the list of messages. We will be
      * listening to changes to the children of this reference in this Activity.
