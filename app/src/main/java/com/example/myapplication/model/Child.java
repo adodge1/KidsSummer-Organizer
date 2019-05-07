@@ -3,9 +3,12 @@ package com.example.myapplication.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Child implements Parcelable {
 
-    private String mId;
+
     private String mName;
     private String mAge;
 
@@ -17,19 +20,13 @@ public class Child implements Parcelable {
 
 
     // Constructor
-    public Child(String id, String name, String age){
-        mId = id;
+    public Child(  String name, String age){
+
         mName = name;
         mAge = age;
     }
 
-    public String getId() {
-        return mId;
-    }
 
-    public void setId(String id) {
-        mId = id;
-    }
 
     public String getChildName() {
         return mName;
@@ -51,7 +48,7 @@ public class Child implements Parcelable {
 
     // Parcelling part
     public Child(Parcel parcel_in){
-        mId = parcel_in.readString();
+
         mName = parcel_in.readString();
         mAge =  parcel_in.readString();
     }
@@ -63,7 +60,7 @@ public class Child implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mId);
+
         dest.writeString(mName);
         dest.writeString(mAge);
 
@@ -71,10 +68,9 @@ public class Child implements Parcelable {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "id='" + mId + '\'' +
-                ", Title='" + mName + '\'' +
-                ", overview='" + mAge + '\'' +
+        return "Child{" +
+                ", Name='" + mName + '\'' +
+                ", Age='" + mAge + '\'' +
                 '}';
     }
 
