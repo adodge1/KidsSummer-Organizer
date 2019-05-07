@@ -20,7 +20,7 @@ public class ChildrenRecyclerAdapter extends RecyclerView.Adapter<ChildrenRecycl
     }
 
 
-    private ChildrenRecyclerAdapter(ChildrenRecyclerAdapter.ChildrenRecyclerAdapterOnClickHandler clickHandler) {
+    public ChildrenRecyclerAdapter(ChildrenRecyclerAdapter.ChildrenRecyclerAdapterOnClickHandler clickHandler) {
         mClickHandler = clickHandler;
     }
 
