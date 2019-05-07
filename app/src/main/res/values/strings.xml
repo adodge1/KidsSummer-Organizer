@@ -15,4 +15,13 @@
 
     <string name="btn_add_child">Add Child</string>
 
+    <string name="btn_save_child">Save Child</string>
+
+    <string name="title_add_child">Add Child</string>
+
+    <string name="child_name_hint">Name</string>
+
+
+    <string name="child_age_hint">Age</string>
+
 </resources>
