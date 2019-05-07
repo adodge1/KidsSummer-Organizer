@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.myapplication.Utils.FirebaseDBUtil;
 import com.example.myapplication.model.Child;
 
 
@@ -42,30 +43,12 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference childrenRef = rootRef.child("child_info");
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //Trailers
-        mChildRecyclerView = findViewById(R.id.rv_children);
-        // use a layout manager
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mChildRecyclerView.setLayoutManager(layoutManager);
-        // use this setting to improve performance
-        mChildRecyclerView.setHasFixedSize(true);
-        // specify an adapter
-        mChildAdapter = new ChildrenRecyclerAdapter(this);
-        //set Adapter to recyclerView
-        mChildRecyclerView.setAdapter(mChildAdapter);
 
 
 
-        //tripsRef.addListenerForSingleValueEvent(valueEventListener);
+        DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
+        DatabaseReference childrenRef = rootRef.child("child_info");
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -86,9 +69,34 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
 
         childrenRef.addValueEventListener(valueEventListener);
 
+
+        setContentView(R.layout.activity_main);
+
+        //Trailers
+        mChildRecyclerView = findViewById(R.id.rv_children);
+        // use a layout manager
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mChildRecyclerView.setLayoutManager(layoutManager);
+        // use this setting to improve performance
+        mChildRecyclerView.setHasFixedSize(true);
+        // specify an adapter
+        mChildAdapter = new ChildrenRecyclerAdapter(this);
+        //set Adapter to recyclerView
+        mChildRecyclerView.setAdapter(mChildAdapter);
+
+
+
+        //tripsRef.addListenerForSingleValueEvent(valueEventListener);
+
+
+
         mChildAdapter.setChildData(children);
 
     }
+
+
+
 
 
     @Override
