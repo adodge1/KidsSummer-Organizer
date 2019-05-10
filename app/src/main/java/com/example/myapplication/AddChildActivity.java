@@ -11,6 +11,10 @@ import com.example.myapplication.Utils.FirebaseDBUtil;
 import com.example.myapplication.model.Child;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddChildActivity extends AppCompatActivity {
 
 
@@ -18,7 +22,7 @@ public class AddChildActivity extends AppCompatActivity {
     /**
      * We use this key to reference the list of messages in Firebase.
      */
-    public static final String CHILD_FIREBASE_KEY = "child_info";
+    public static final String CHILD_FIREBASE_KEY = "kids";
 
 
     /**
@@ -54,7 +58,7 @@ public class AddChildActivity extends AppCompatActivity {
      * @param view The button that was clicked.
      */
     public void addChild(View view) {
-        pushMessageToFirebase();
+        pushDataToFirebase();
         //resetInputField();
         //hideKeyboard();
         finish();
@@ -65,7 +69,7 @@ public class AddChildActivity extends AppCompatActivity {
     /**
      * Sends a message to Firebase
      */
-    private void pushMessageToFirebase() {
+    private void pushDataToFirebase() {
         String childNameContent = childNameEntry.getText().toString();
         String childAgeContent = childAgeEntry.getText().toString();
 

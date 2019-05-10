@@ -19,11 +19,10 @@ import com.example.myapplication.Utils.FirebaseDBUtil;
 import com.example.myapplication.model.Child;
 
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -33,10 +32,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ChildrenRecyclerAdapter.ChildrenRecyclerAdapterOnClickHandler {
 
-
-    private ChildrenRecyclerAdapter mChildAdapter;
-    private RecyclerView mChildRecyclerView;
-
+    private DatabaseReference childrenRef;
+    private ValueEventListener valueEventListener;
     private ArrayList<Child> children = new ArrayList<>();
 
 
@@ -44,17 +41,22 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
-        DatabaseReference childrenRef = rootRef.child("child_info");
+         childrenRef = rootRef.child("kids");
+    }
 
-        ValueEventListener valueEventListener = new ValueEventListener() {
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 children.clear();
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
                     String childName = ds.child("childName").getValue(String.class);
                     String childAge = ds.child("age").getValue(String.class);
 
@@ -68,12 +70,9 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
         };
 
         childrenRef.addValueEventListener(valueEventListener);
-
-
         setContentView(R.layout.activity_main);
-
-        //Trailers
-        mChildRecyclerView = findViewById(R.id.rv_children);
+        //Children
+        RecyclerView  mChildRecyclerView = findViewById(R.id.rv_children);
         // use a layout manager
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -81,29 +80,29 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
         // use this setting to improve performance
         mChildRecyclerView.setHasFixedSize(true);
         // specify an adapter
-        mChildAdapter = new ChildrenRecyclerAdapter(this);
+        ChildrenRecyclerAdapter mChildAdapter = new ChildrenRecyclerAdapter(this);
         //set Adapter to recyclerView
         mChildRecyclerView.setAdapter(mChildAdapter);
-
-
-
-        //tripsRef.addListenerForSingleValueEvent(valueEventListener);
-
-
-
         mChildAdapter.setChildData(children);
+
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        childrenRef.removeEventListener(valueEventListener);
 
-
-
+    }
 
     @Override
     public void onClick(Child selectedChild) {
-        String name = selectedChild.getChildName();
+       // String name = selectedChild.getChildName();
+        // Toast.makeText(this, "Item Clicked"+name, Toast.LENGTH_LONG).show();
+        Intent intentToStartDetailActivity = new Intent(MainActivity.this, DetailActivityChild.class);
+        intentToStartDetailActivity.putExtra("Child.Details",selectedChild);
+        startActivity(intentToStartDetailActivity);
 
-         Toast.makeText(this, "Item Clicked"+name, Toast.LENGTH_LONG).show();
     }
 
 

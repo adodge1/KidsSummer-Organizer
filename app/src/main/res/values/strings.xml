@@ -17,11 +17,49 @@
 
     <string name="btn_save_child">Save Child</string>
 
+    <string name="btn_add_camp">Add Camp</string>
+
     <string name="title_add_child">Add Child</string>
+    <string name="title_add_camp">Add Camp</string>
+
+    <string name="btn_save_camp">Save Camp</string>
 
     <string name="child_name_hint">Name</string>
-
-
     <string name="child_age_hint">Age</string>
+
+    <string name="camp_name_hint">Camp Name</string>
+    <string name="camp_cont_name_hint">Camp Contact Name</string>
+    <string name="camp_phone_hint">Camp Contact Phone</string>
+    <string name="camp_street_hint">Camp Address</string>
+   <string name="camp_city_hint">City</string>
+    <string name="camp_state_hint">State</string>
+    <string name="camp_zip_hint">Zip</string>
+
+
+
+
+
+
+
+    <string name="camp_from_date">Week: from</string>
+    <string name="camp_to_date">to</string>
+    <string name="camp_from_hrs">Hours: from</string>
+    <string name="camp_to_hrs">to</string>
+
+    <string name="camp_has_lunch">Camp Provides Lunch?</string>
+
+    <string-array name="hasLunch_array">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string name="camp_notes_hint">Additional Notes to Remember:</string>
+
+
+
+
+
+    <string name="detail_error_message">Sorry there has been an error</string>
+
 
 </resources>
