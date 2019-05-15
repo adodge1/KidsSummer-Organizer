@@ -1,13 +1,16 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
     private ValueEventListener valueEventListener;
     private ArrayList<Camp> camps = new ArrayList<>();
     private CampsRecyclerAdapter mCampAdapter;
+    private int mNumberColumns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +62,15 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
                 kidsCampsRef.keepSynced(true);
 
                 RecyclerView mCampRecyclerView = findViewById(R.id.rv_camps);
+
+                mNumberColumns = calculateNoOfColumns(this);
+                // use a grid layout manager
+                GridLayoutManager layoutManager = new GridLayoutManager(this, mNumberColumns, GridLayoutManager.VERTICAL, false);
+
+
                 // use a layout manager
-                LinearLayoutManager layoutManager
-                        = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+               // LinearLayoutManager layoutManager
+                    //    = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 mCampRecyclerView.setLayoutManager(layoutManager);
                 // use this setting to improve performance
                 mCampRecyclerView.setHasFixedSize(true);
@@ -143,6 +153,17 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
         startActivity(intentToStartDetailActivity);
 
 
+    }
+
+
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 200;
+        int noOfColumns = (int) (dpWidth / scalingFactor);
+        if(noOfColumns < 3)
+            noOfColumns = 3;
+        return noOfColumns;
     }
 
 
