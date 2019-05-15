@@ -139,12 +139,12 @@ public class AddCampActivity extends AppCompatActivity {
 
 
         Camp.Address campAddress = new Camp.Address(campStreetData,campCityData,campStateData,campZipData);
-
+        //TODO set hasLunch to the real dropdown value
          Camp campInfoToAdd = new Camp(campNameData,campContactData,campPhoneData,campAddress,campWeekFromData,campWeekToData,campHoursFromData,campHoursToData,true,campNotesData);
         // campInfoReference.push().setValue(campInfoToAdd);
         campInfoReference.child(campNameData).setValue(campInfoToAdd);
          String childName = mChildSelectedInfo.getChildName();
-
+        //TODO set the value of the camp to the start week
         campskidReference.child(childName).child(campNameData).setValue(true);
 
 
