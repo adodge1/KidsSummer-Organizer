@@ -161,8 +161,6 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         int scalingFactor = 200;
         int noOfColumns = (int) (dpWidth / scalingFactor);
-        if(noOfColumns < 3)
-            noOfColumns = 3;
         return noOfColumns;
     }
 
