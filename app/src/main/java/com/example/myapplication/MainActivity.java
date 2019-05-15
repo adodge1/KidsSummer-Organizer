@@ -23,6 +23,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
     private DatabaseReference childrenRef;
     private ValueEventListener valueEventListener;
     private ArrayList<Child> children = new ArrayList<>();
-
+    private ChildrenRecyclerAdapter mChildAdapter;
 
 
     @Override
@@ -43,12 +45,29 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
         super.onCreate(savedInstanceState);
         DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
          childrenRef = rootRef.child("kids");
+        childrenRef.keepSynced(true);
+
+        setContentView(R.layout.activity_main);
+        //Children
+        RecyclerView  mChildRecyclerView = findViewById(R.id.rv_children);
+        // use a layout manager
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mChildRecyclerView.setLayoutManager(layoutManager);
+        // use this setting to improve performance
+        mChildRecyclerView.setHasFixedSize(true);
+        // specify an adapter
+         mChildAdapter = new ChildrenRecyclerAdapter(this);
+        //set Adapter to recyclerView
+        mChildRecyclerView.setAdapter(mChildAdapter);
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
+
+
 
 
         valueEventListener = new ValueEventListener() {
@@ -62,27 +81,19 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
 
                     Child newKid = new Child(childName,childAge);
                     children.add(newKid);
+                    mChildAdapter.notifyDataSetChanged(); // refresh
                 }
             }
+
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
 
         childrenRef.addValueEventListener(valueEventListener);
-        setContentView(R.layout.activity_main);
-        //Children
-        RecyclerView  mChildRecyclerView = findViewById(R.id.rv_children);
-        // use a layout manager
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mChildRecyclerView.setLayoutManager(layoutManager);
-        // use this setting to improve performance
-        mChildRecyclerView.setHasFixedSize(true);
-        // specify an adapter
-        ChildrenRecyclerAdapter mChildAdapter = new ChildrenRecyclerAdapter(this);
-        //set Adapter to recyclerView
-        mChildRecyclerView.setAdapter(mChildAdapter);
+
         mChildAdapter.setChildData(children);
 
 

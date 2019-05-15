@@ -43,6 +43,10 @@ public class Camp implements Parcelable {
     public Camp() {
     }
 
+    public Camp(String campName) {
+        mName = campName;
+    }
+
     // Constructor
     public Camp( String campName,String campContactName,String campContactPhone, Address addy,String campWeekFrom, String campWeekTo,String campHrsFrom, String campHrsTo,Boolean hasLunch,String campNotes ){
 

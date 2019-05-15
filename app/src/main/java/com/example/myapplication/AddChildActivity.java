@@ -74,7 +74,9 @@ public class AddChildActivity extends AppCompatActivity {
         String childAgeContent = childAgeEntry.getText().toString();
 
         Child childInfoToAdd = new Child(childNameContent,childAgeContent);
-        childInfoReference.push().setValue(childInfoToAdd);
+
+       // childInfoReference.child(childNameContent);
+        childInfoReference.child(childNameContent).setValue(childInfoToAdd);
     }
 
 
