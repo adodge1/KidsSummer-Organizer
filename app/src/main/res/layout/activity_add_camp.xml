@@ -76,15 +76,12 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
 
 
             <android.support.constraint.ConstraintLayout
@@ -103,6 +100,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginTop="44dp"
                     android:gravity="top"
                     android:text="@string/title_add_camp"
                     android:textSize="25sp"
@@ -411,6 +409,6 @@
 
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>
