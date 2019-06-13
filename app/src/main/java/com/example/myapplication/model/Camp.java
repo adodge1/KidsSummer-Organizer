@@ -3,7 +3,7 @@ package com.example.myapplication.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
@@ -23,14 +23,17 @@ public class Camp implements Parcelable {
 
 
     private String mName;
-    private String mPhone;
     private String mContact;
-    private Address address;
+    private String mPhone;
+    private String mStreet;
+    private String mCity;
+    private String mState;
+    private String mZip;
     private String mWeekFrom;
     private String mWeekTo;
     private String mHoursFrom;
     private String mHoursTo;
-    private Boolean mProvidesLunch;
+    private String mProvidesLunch;
     private String mNotes;
 
 
@@ -45,15 +48,25 @@ public class Camp implements Parcelable {
 
     public Camp(String campName) {
         mName = campName;
+
+    }
+
+    public Camp(String campName,String campContactName) {
+        mName = campName;
+        mContact = campContactName;
+
     }
 
     // Constructor
-    public Camp( String campName,String campContactName,String campContactPhone, Address addy,String campWeekFrom, String campWeekTo,String campHrsFrom, String campHrsTo,Boolean hasLunch,String campNotes ){
+    public Camp( String campName,String campContactName,String campContactPhone,String street , String city, String state, String zip ,String campWeekFrom, String campWeekTo,String campHrsFrom, String campHrsTo,String hasLunch,String campNotes ){
 
         mName = campName;
         mContact = campContactName;
         mPhone = campContactPhone;
-        address = addy;
+        mStreet = street;
+         mCity = city;
+        mState = state;
+         mZip = zip;
         mWeekFrom = campWeekFrom;
         mWeekTo  =campWeekTo;
         mHoursFrom = campHrsFrom;
@@ -68,12 +81,15 @@ public class Camp implements Parcelable {
         mName = in.readString();
         mContact = in.readString();
         mPhone = in.readString();
-        address = in.readParcelable(Address.class.getClassLoader());
+        mStreet = in.readString();
+        mCity = in.readString();
+        mState = in.readString();
+        mZip = in.readString();
         mWeekFrom =in.readString();
         mWeekTo  = in.readString();
         mHoursFrom = in.readString();
         mHoursTo = in.readString();
-        mProvidesLunch = in.readByte() != 0;
+        mProvidesLunch = in.readString();
         mNotes = in.readString();
 
     }
@@ -87,6 +103,10 @@ public class Camp implements Parcelable {
                 ", Camp Name='" + mName + '\'' +
                 ", Contact='" + mContact + '\'' +
                 ", Phone='" + mPhone + '\'' +
+                ", street='" + mStreet + '\'' +
+                ", City='" + mCity + '\'' +
+                ", State='" + mState + '\'' +
+                ", Zip='" + mZip + '\'' +
                 ", WeekFrom='" + mWeekFrom + '\'' +
                 ", WeekTo='" + mWeekTo + '\'' +
                 ", HrsFrom='" + mHoursFrom + '\'' +
@@ -124,6 +144,41 @@ public class Camp implements Parcelable {
         this.mPhone = phone;
     }
 
+
+    public String getStreet() {
+        return mStreet;
+    }
+
+    public void setStreet(String street) {
+        this.mStreet = street;
+    }
+
+    public String getCity() {
+        return mCity;
+    }
+
+    public void setCity(String city) {
+        this.mCity = city;
+    }
+
+
+    public String getState() {
+        return mState;
+    }
+
+    public void setState(String state) {
+        this.mState = state;
+    }
+
+
+    public String getZip() {    return mZip;    }
+
+    public void setZip(String zip) {
+        this.mZip = zip;
+    }
+
+
+
     public String getWeekFrom() {
         return mWeekFrom;
     }
@@ -159,11 +214,11 @@ public class Camp implements Parcelable {
 
 
 
-    public Boolean getProvidesLunch() {
+    public String getProvidesLunch() {
         return mProvidesLunch;
     }
 
-    public void setProvidesLunch(Boolean hasLunch) {
+    public void setProvidesLunch(String hasLunch) {
         this.mProvidesLunch = hasLunch;
     }
 
@@ -182,13 +237,15 @@ public class Camp implements Parcelable {
         dest.writeString(mName);
         dest.writeString(mContact);
         dest.writeString(mPhone);
-        //Writing the nested class to parcel
-        dest.writeParcelable(address, flags);
+        dest.writeString(mStreet);
+        dest.writeString(mCity);
+        dest.writeString(mState);
+        dest.writeString(mZip);
         dest.writeString(mWeekFrom);
         dest.writeString(mWeekTo);
         dest.writeString(mHoursFrom);
         dest.writeString(mHoursTo);
-        dest.writeByte((byte) (mProvidesLunch ? 1 : 0));
+        dest.writeString(mProvidesLunch);
         dest.writeString(mNotes);
 
     }
@@ -199,72 +256,7 @@ public class Camp implements Parcelable {
     }
 
 
-    //Nested Class
-    public static class Address implements Parcelable {
 
-
-        public static final Creator<Address> CREATOR = new Creator<Address>() {
-            @Override
-            public Address createFromParcel(Parcel in) {
-                return new Address(in);
-            }
-
-            @Override
-            public Address[] newArray(int size) {
-                return new Address[size];
-            }
-        };
-
-        private String mStreet;
-        private String mCity;
-        private String mState;
-        private String mZip;
-
-
-        protected Address(Parcel in) {
-            mStreet = in.readString();
-            mCity = in.readString();
-            mState = in.readString();
-            mZip = in.readString();
-        }
-
-        public Address(String street, String city,  String state, String zip) {
-
-            this.mStreet = street;
-            this.mCity = city;
-            this.mState = state;
-            this.mZip = zip;
-        }
-
-
-
-
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(mStreet);
-            dest.writeString(mCity);
-            dest.writeString(mState);
-            dest.writeString(mZip);
-
-        }
-
-        @Override
-        public String toString() {
-            return "Address{" +
-                    "street='" + mStreet + '\'' +
-                    ", City='" + mCity + '\'' +
-                    ", State='" + mState + '\'' +
-                    ", Zip='" + mZip + '\'' +
-                    '}';
-        }
-
-    }
 
 
 

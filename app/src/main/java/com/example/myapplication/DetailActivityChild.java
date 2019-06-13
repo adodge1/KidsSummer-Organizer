@@ -31,6 +31,8 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
 
     private Child mChildInfo;
 
+    private Camp mCampInfo;
+
     /*to read the camps related to the kid selected*/
     private DatabaseReference kidsCampsRef;
     private ValueEventListener valueEventListener;
@@ -57,9 +59,7 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
             }else{
                 TextView childNameTitle = findViewById(R.id.tv_titleChildDetail);
                 childNameTitle.setText(mChildInfo.getChildName());
-                DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
-                kidsCampsRef = rootRef.child("kid_camps").child(mChildInfo.getChildName());
-                kidsCampsRef.keepSynced(true);
+
 
                 RecyclerView mCampRecyclerView = findViewById(R.id.rv_camps);
 
@@ -93,6 +93,10 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
     protected void onStart() {
         super.onStart();
 
+        DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
+        kidsCampsRef = rootRef.child("kid_camps").child(mChildInfo.getChildName());
+        kidsCampsRef.keepSynced(true);
+
 
         valueEventListener = new ValueEventListener() {
             @Override
@@ -102,9 +106,9 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
 
                     String campName = ds.getKey();
 
-
                     Camp newCamp = new Camp(campName);
                     camps.add(newCamp);
+
                     mCampAdapter.notifyDataSetChanged(); // refresh
                 }
             }
@@ -131,11 +135,12 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
 
     @Override
     public void onClick(Camp selectedCamp) {
-         String name = selectedCamp.getCampName();
-         Toast.makeText(this, "Item Clicked"+name, Toast.LENGTH_LONG).show();
-       // Intent intentToStartDetailActivity = new Intent(this, DetailActivityChild.class);
-      //  intentToStartDetailActivity.putExtra("Camp.Details",selectedCamp);
-      //  startActivity(intentToStartDetailActivity);
+       //  String name = selectedCamp.getCampName();
+     //    Toast.makeText(this, "Item Clicked"+name, Toast.LENGTH_LONG).show();
+        Intent intentToStartDetailActivity = new Intent(this, AddCampActivity.class);
+        intentToStartDetailActivity.putExtra("Camp.Info",selectedCamp);
+        intentToStartDetailActivity.putExtra("Child.Selected",mChildInfo);
+        startActivity(intentToStartDetailActivity);
 
     }
 
