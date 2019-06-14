@@ -231,7 +231,7 @@
 
                 <EditText
                     android:id="@+id/dateFromInput"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="date"
@@ -240,17 +240,29 @@
                     app:layout_constraintStart_toEndOf="@+id/tv_from_date"
                     app:layout_constraintTop_toBottomOf="@id/stateInput" />
 
+                <Button
+                    android:id="@+id/btn_startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dateFromInput"
+                    android:layout_marginLeft="135dp"
+                    android:text="Start Date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_from_date"/>
+
 
                 <TextView
                     android:id="@+id/tv_to_date"
                     android:layout_width="36dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="4dp"
-                    android:paddingLeft="8dp"
-                    android:paddingStart="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingLeft="16dp"
                     android:paddingTop="8dp"
-                    android:paddingRight="4dp"
                     android:paddingEnd="4dp"
+                    android:paddingRight="4dp"
                     android:paddingBottom="8dp"
                     android:text="@string/camp_to_date"
                     android:textSize="18sp"
@@ -260,7 +272,7 @@
 
                 <EditText
                     android:id="@+id/dateToInput"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginLeft="12dp"
@@ -269,6 +281,16 @@
                     app:layout_constraintStart_toEndOf="@+id/tv_to_date"
                     app:layout_constraintTop_toBottomOf="@id/zipInput"
                     tools:layout_editor_absoluteY="430dp" />
+
+                <Button
+                    android:id="@+id/btn_endDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dateFromInput"
+                    android:layout_marginLeft="45dp"
+                    android:text="End Date"
+                    app:layout_constraintStart_toStartOf="@id/tv_to_date"
+                    app:layout_constraintTop_toBottomOf="@id/dateToInput"/>
 
 
 
@@ -286,48 +308,71 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.117"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_from_date" />
+                    app:layout_constraintTop_toBottomOf="@id/btn_startDate" />
 
 
                 <EditText
                     android:id="@+id/hrsFromInput"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="time"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/tv_from_hrs"
-                    app:layout_constraintTop_toBottomOf="@id/dateFromInput" />
+                    app:layout_constraintTop_toBottomOf="@id/btn_startDate" />
+
+                <Button
+                    android:id="@+id/btn_startTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hrsFromInput"
+                    android:layout_marginLeft="135dp"
+                    android:text="Start Time"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_from_hrs"/>
 
 
                 <TextView
                     android:id="@+id/tv_to_hrs"
                     android:layout_width="36dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="4dp"
-                    android:paddingLeft="8dp"
-                    android:paddingStart="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingLeft="16dp"
                     android:paddingTop="8dp"
-                    android:paddingRight="4dp"
                     android:paddingEnd="4dp"
+                    android:paddingRight="4dp"
                     android:paddingBottom="8dp"
                     android:text="@string/camp_to_hrs"
                     android:textSize="18sp"
                     app:layout_constraintStart_toEndOf="@+id/hrsFromInput"
-                    app:layout_constraintTop_toBottomOf="@id/tv_to_date" />
+                    app:layout_constraintTop_toBottomOf="@id/btn_startDate" />
 
 
                 <EditText
                     android:id="@+id/hrsToInput"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginLeft="12dp"
                     android:ems="10"
                     android:inputType="time"
                     app:layout_constraintStart_toEndOf="@+id/tv_to_hrs"
-                    app:layout_constraintTop_toBottomOf="@id/dateToInput" />
+                    app:layout_constraintTop_toBottomOf="@id/btn_startDate" />
+
+
+                <Button
+                    android:id="@+id/btn_endTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hrsToInput"
+                    android:layout_marginLeft="45dp"
+                    android:text="End Time"
+                    app:layout_constraintStart_toStartOf="@id/tv_to_hrs"
+                    app:layout_constraintTop_toBottomOf="@id/hrsToInput"/>
 
 
 
@@ -346,7 +391,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.151"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hrsFromInput" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_endTime" />
 
 
                 <Spinner
@@ -359,7 +404,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.11"
                     app:layout_constraintStart_toEndOf="@+id/tv_lunch"
-                    app:layout_constraintTop_toBottomOf="@id/hrsFromInput" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_endTime" />
 
 
                 <EditText
