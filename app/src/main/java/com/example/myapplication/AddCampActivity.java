@@ -1,14 +1,18 @@
 package com.example.myapplication;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.myapplication.Utils.FirebaseDBUtil;
@@ -22,10 +26,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Calendar;
 
-public class AddCampActivity extends AppCompatActivity {
+
+public class AddCampActivity extends AppCompatActivity implements
+        View.OnClickListener{
 
     /**
      * We use this key to reference the list of messages in Firebase.
@@ -48,10 +53,10 @@ public class AddCampActivity extends AppCompatActivity {
     /*to read the camps related to the kid selected*/
     private DatabaseReference campsRef;
 
-    private DatabaseReference campsDBRef;
+
 
     private ValueEventListener valueEventListener;
-    private ArrayList<Camp> camps = new ArrayList<>();
+
 
 
 
@@ -62,7 +67,16 @@ public class AddCampActivity extends AppCompatActivity {
     private EditText campCity;
     private EditText campState;
     private EditText campZip;
-    private EditText campWeekFrom;
+
+    DatePickerDialog picker;
+    private EditText campWeekFrom; //eText
+    Button btnGetStartDate;
+    Button btnGetStartTime;
+    Button btnGetEndDate;
+    Button btnGetEndTime;
+
+    private int mYear, mMonth, mDay, mHour, mMinute;
+
     private EditText campWeekTo;
     private EditText campHoursFrom;
     private EditText campHoursTo;
@@ -75,10 +89,9 @@ public class AddCampActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_add_camp);
+
+
         final Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
@@ -104,13 +117,21 @@ public class AddCampActivity extends AppCompatActivity {
         campState = findViewById(R.id.stateInput);
         campZip = findViewById(R.id.zipInput);
         campWeekFrom = findViewById(R.id.dateFromInput);
+        btnGetStartDate=findViewById(R.id.btn_startDate);
+        btnGetEndDate=findViewById(R.id.btn_endDate);
         campWeekTo = findViewById(R.id.dateToInput);
         campHoursFrom = findViewById(R.id.hrsFromInput);
+        btnGetStartTime=findViewById(R.id.btn_startTime);
+        btnGetEndTime=findViewById(R.id.btn_endTime);
         campHoursTo = findViewById(R.id.hrsToInput);
         campNotes = findViewById(R.id.notesInput);
 
 
+        btnGetStartDate.setOnClickListener(this);
+        btnGetStartTime.setOnClickListener(this);
 
+        btnGetEndDate.setOnClickListener(this);
+        btnGetEndTime.setOnClickListener(this);
 
         Spinner spinner =  findViewById(R.id.hasLunch_spinner);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -122,6 +143,106 @@ public class AddCampActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
     }
+
+
+//https://www.journaldev.com/9976/android-date-time-picker-dialog
+
+    @Override
+    public void onClick(View v) {
+
+        if (v == btnGetStartDate) {
+
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            campWeekFrom.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
+
+        if (v == btnGetEndDate) {
+
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            campWeekTo.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
+
+
+       if (v == btnGetStartTime) {
+
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+
+                            campHoursFrom.setText(hourOfDay + ":" + minute);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
+
+        if (v == btnGetEndTime) {
+
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+
+                            campHoursTo.setText(hourOfDay + ":" + minute);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
+
+}
+
+
+
 
     @Override
     protected void onStart() {
@@ -146,6 +267,10 @@ public class AddCampActivity extends AppCompatActivity {
                             mCampInfo.setCity(ds.child("city").getValue(String.class));
                             mCampInfo.setState(ds.child("state").getValue(String.class));
                             mCampInfo.setZip(ds.child("zip").getValue(String.class));
+                            mCampInfo.setWeekFrom(ds.child("weekFrom").getValue(String.class));
+                            mCampInfo.setWeekTo(ds.child("weekTo").getValue(String.class));
+                            mCampInfo.setHrsFrom(ds.child("hrsFrom").getValue(String.class));
+                            mCampInfo.setHrsTo(ds.child("hrsTo").getValue(String.class));
                             mCampInfo.setNotes(ds.child("notes").getValue(String.class));
 
                         }
@@ -209,6 +334,10 @@ public class AddCampActivity extends AppCompatActivity {
             campInfoReference.child(mCampInfo.getCampName()).child("city").setValue(campCity.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("state").setValue(campState.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("zip").setValue(campZip.getText().toString());
+            campInfoReference.child(mCampInfo.getCampName()).child("weekFrom").setValue(campWeekFrom.getText().toString());
+            campInfoReference.child(mCampInfo.getCampName()).child("weekTo").setValue(campWeekTo.getText().toString());
+            campInfoReference.child(mCampInfo.getCampName()).child("hrsFrom").setValue(campHoursFrom.getText().toString());
+            campInfoReference.child(mCampInfo.getCampName()).child("hrsTo").setValue(campHoursTo.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("notes").setValue(campNotes.getText().toString());
 
 
