@@ -318,19 +318,10 @@ public class AddCampActivity extends AppCompatActivity implements
      * @param view The button that was clicked.
      */
     public void addCamp(View view) {
-        //https://tausiq.wordpress.com/2013/01/19/android-input-field-validation/
+        //https://github.com/nisrulz/validatetor?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=7072
         //validate first then add or edit
         ValidateTor validateTor = new ValidateTor();
         mIsValid = true;
-        // i.e To validate a password string
-
-
-
-
-
-
-
-
 
 
         // Check if password field is empty

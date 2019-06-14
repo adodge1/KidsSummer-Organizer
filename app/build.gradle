@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation "com.google.firebase:firebase-database:17.0.0"
 
+    //https://github.com/nisrulz/validatetor?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=7072
     implementation 'com.github.nisrulz:validatetor:1.0.0'
 
 
