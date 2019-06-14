@@ -189,11 +189,11 @@ public class Camp implements Parcelable {
 
 
     public String getWeekTo() {
-        return mWeekFrom;
+        return mWeekTo;
     }
 
     public void setWeekTo(String weekTo) {
-        this.mWeekFrom = weekTo;
+        this.mWeekTo = weekTo;
     }
 
     public String getHrsFrom() {
