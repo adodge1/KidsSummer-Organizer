@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.raywenderlich.android.validatetor.ValidateTor;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,8 +60,7 @@ public class AddCampActivity extends AppCompatActivity implements
     private ValueEventListener valueEventListener;
 
 
-
-
+    private TextView titlePage;
     private EditText campName;
     private EditText campContact;
     private EditText campPhone;
@@ -67,6 +68,7 @@ public class AddCampActivity extends AppCompatActivity implements
     private EditText campCity;
     private EditText campState;
     private EditText campZip;
+    private Boolean mIsValid;
 
     DatePickerDialog picker;
     private EditText campWeekFrom; //eText
@@ -109,6 +111,8 @@ public class AddCampActivity extends AppCompatActivity implements
             e.printStackTrace();
         }
 
+
+        titlePage = findViewById(R.id.tv_titleMain);
         campName = findViewById(R.id.campNameInput);
         campContact = findViewById(R.id.contactInput);
         campPhone = findViewById(R.id.phoneInput);
@@ -248,6 +252,9 @@ public class AddCampActivity extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         if(mCampInfo != null) {
+            titlePage.setText("Edit Camp");
+            campName.setEnabled(false);
+
             DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
             campsRef = rootRef.child("camps");
             campsRef.keepSynced(true);
@@ -311,10 +318,90 @@ public class AddCampActivity extends AppCompatActivity implements
      * @param view The button that was clicked.
      */
     public void addCamp(View view) {
-        pushDataToFirebase();
-        //resetInputField();
-        //hideKeyboard();
-        finish();
+        //https://tausiq.wordpress.com/2013/01/19/android-input-field-validation/
+        //validate first then add or edit
+        ValidateTor validateTor = new ValidateTor();
+        mIsValid = true;
+        // i.e To validate a password string
+
+
+
+
+
+
+
+
+
+
+        // Check if password field is empty
+        if (validateTor.isEmpty(campName.getText().toString())) {
+            campName.setError("Field is empty!");
+            mIsValid = false;
+        }
+
+
+        if (validateTor.isEmpty(campContact.getText().toString())) {
+            campContact.setError("Field is empty!");
+            mIsValid = false;
+        }
+
+
+
+        if (validateTor.isEmpty(campPhone.getText().toString())) {
+            campPhone.setError("Field is empty!");
+            mIsValid = false;
+        }
+
+
+
+        if (validateTor.isEmpty(campStreet.getText().toString())) {
+            campStreet.setError("Field is empty!");
+            mIsValid = false;
+        }
+
+
+
+        if (validateTor.isEmpty(campCity.getText().toString())) {
+            campCity.setError("Field is empty!");
+            mIsValid = false;
+        }
+        if (validateTor.isEmpty(campState.getText().toString())) {
+            campState.setError("Field is empty!");
+            mIsValid = false;
+        }
+        if (validateTor.isEmpty(campZip.getText().toString())) {
+            campZip.setError("Field is empty!");
+            mIsValid = false;
+        }
+        if (validateTor.isEmpty(campWeekFrom.getText().toString())) {
+            campWeekFrom.setError("Field is empty!");
+            mIsValid = false;
+        }
+        if (validateTor.isEmpty(campWeekTo.getText().toString())) {
+            campWeekTo.setError("Field is empty!");
+            mIsValid = false;
+        }
+        if (validateTor.isEmpty(campHoursFrom.getText().toString())) {
+            campHoursFrom.setError("Field is empty!");
+            mIsValid = false;
+        }
+        if (validateTor.isEmpty(campHoursTo.getText().toString())) {
+            campHoursTo.setError("Field is empty!");
+            mIsValid = false;
+        }
+
+
+
+
+
+        if(mIsValid){
+            pushDataToFirebase();
+            //resetInputField();
+            //hideKeyboard();
+            finish();
+        }
+
+
     }
 
 
@@ -325,9 +412,8 @@ public class AddCampActivity extends AppCompatActivity implements
 
 
         if(mCampInfo != null) {
-           //push data to edit!!!
-
-            campInfoReference.child(mCampInfo.getCampName()).child("campName").setValue(campName.getText().toString());
+           //EDIT
+           // campInfoReference.child(mCampInfo.getCampName()).child("campName").setValue(campName.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("contact").setValue(campContact.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("phone").setValue(campPhone.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("street").setValue(campStreet.getText().toString());
@@ -340,16 +426,8 @@ public class AddCampActivity extends AppCompatActivity implements
             campInfoReference.child(mCampInfo.getCampName()).child("hrsTo").setValue(campHoursTo.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("notes").setValue(campNotes.getText().toString());
 
-
-            //https://www.firebase.com/docs/android/examples.html
-
-
-
-          //  String name = campName.getText().toString();
-          // Toast.makeText(this, name, Toast.LENGTH_LONG).show();
-
         }else{
-
+            //ADD
             String campNameData = campName.getText().toString();
             String campContactData = campContact.getText().toString();
             String campPhoneData = campPhone.getText().toString();
@@ -362,9 +440,6 @@ public class AddCampActivity extends AppCompatActivity implements
             String campHoursFromData = campHoursFrom.getText().toString();
             String campHoursToData = campHoursTo.getText().toString();
             String campNotesData = campNotes.getText().toString();
-
-
-
             //TODO set hasLunch to the real dropdown value
             Camp campInfoToAdd = new Camp(campNameData,campContactData,campPhoneData,campStreetData,campCityData,campStateData,campZipData,campWeekFromData,campWeekToData,campHoursFromData,campHoursToData,"YES",campNotesData);
             // campInfoReference.push().setValue(campInfoToAdd);
