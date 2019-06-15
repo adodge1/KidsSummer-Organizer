@@ -67,7 +67,6 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
                 // use a grid layout manager
                 GridLayoutManager layoutManager = new GridLayoutManager(this, mNumberColumns, GridLayoutManager.VERTICAL, false);
 
-
                 // use a layout manager
                // LinearLayoutManager layoutManager
                     //    = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -95,6 +94,7 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
 
         DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
         kidsCampsRef = rootRef.child("kid_camps").child(mChildInfo.getChildName());
+        kidsCampsRef.orderByValue();
         kidsCampsRef.keepSynced(true);
 
 
@@ -105,11 +105,14 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String campName = ds.getKey();
+                    String campWeekFrom = ds.getValue(String.class);
 
-                    Camp newCamp = new Camp(campName);
+                    Camp newCamp = new Camp(campName,campWeekFrom);
                     camps.add(newCamp);
 
                     mCampAdapter.notifyDataSetChanged(); // refresh
+
+
                 }
             }
 
@@ -118,8 +121,6 @@ public class DetailActivityChild extends AppCompatActivity implements CampsRecyc
         };
 
         kidsCampsRef.addValueEventListener(valueEventListener);
-
-
         mCampAdapter.setCampData(camps);
 
     }
