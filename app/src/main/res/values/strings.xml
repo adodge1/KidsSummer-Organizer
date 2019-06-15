@@ -21,6 +21,8 @@
 
     <string name="title_add_child">Add Child</string>
     <string name="title_add_camp">Add Camp</string>
+   <string name="title_edit_camp">Edit Camp</string>
+
 
     <string name="btn_save_camp">Save Camp</string>
 
@@ -35,16 +37,15 @@
     <string name="camp_state_hint">State</string>
     <string name="camp_zip_hint">Zip</string>
 
-
-
-
-
+    <string name="validate_empty_field">Field is empty!</string>
 
 
     <string name="camp_from_date">Week: from</string>
     <string name="camp_to_date">to</string>
     <string name="camp_from_hrs">Hours: from</string>
     <string name="camp_to_hrs">to</string>
+
+
 
     <string name="camp_has_lunch">Camp Provides Lunch?</string>
 
@@ -55,11 +56,9 @@
 
     <string name="camp_notes_hint">Additional Notes to Remember:</string>
 
-
-
-
-
     <string name="detail_error_message">Sorry there has been an error</string>
+
+
 
 
 </resources>
