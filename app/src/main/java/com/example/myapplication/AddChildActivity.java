@@ -11,9 +11,8 @@ import com.example.myapplication.Utils.FirebaseDBUtil;
 import com.example.myapplication.model.Child;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.raywenderlich.android.validatetor.ValidateTor;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddChildActivity extends AppCompatActivity {
 
@@ -44,6 +43,7 @@ public class AddChildActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +58,30 @@ public class AddChildActivity extends AppCompatActivity {
      * @param view The button that was clicked.
      */
     public void addChild(View view) {
-        pushDataToFirebase();
-        //resetInputField();
-        //hideKeyboard();
-        finish();
+
+        //https://github.com/nisrulz/validatetor?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=7072
+        //validate first then add or edit
+        ValidateTor validateTor = new ValidateTor();
+        Boolean mIsValid = true;
+        String mFieldEmptyText = getString(R.string.validate_empty_field);
+
+        // Check if password field is empty
+        if (validateTor.isEmpty(childNameEntry.getText().toString())) {
+            childNameEntry.setError(mFieldEmptyText);
+            mIsValid = false;
+        }
+
+
+        if (validateTor.isEmpty(childAgeEntry.getText().toString())) {
+            childAgeEntry.setError(mFieldEmptyText);
+            mIsValid = false;
+        }
+
+
+        if(mIsValid) {
+            pushDataToFirebase();
+            finish();
+        }
     }
 
 
@@ -74,31 +94,7 @@ public class AddChildActivity extends AppCompatActivity {
         String childAgeContent = childAgeEntry.getText().toString();
 
         Child childInfoToAdd = new Child(childNameContent,childAgeContent);
-
-       // childInfoReference.child(childNameContent);
         childInfoReference.child(childNameContent).setValue(childInfoToAdd);
-    }
-
-
-
-    /**
-     * Clears the entered text. Used after a data is sent to firebase
-     */
-    private void resetInputField() {
-        childAgeEntry.setText("");
-        childNameEntry.setText("");
-
-    }
-
-    /**
-     * Hides the soft keyboard. Used after a message is sent.
-     */
-
-    private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-
-        imm.hideSoftInputFromWindow(childAgeEntry.getWindowToken(), 0);
     }
 
 
