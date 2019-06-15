@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.raywenderlich.android.validatetor.ValidateTor;
 
-import java.util.ArrayList;
+
 import java.util.Calendar;
 
 
@@ -82,6 +82,7 @@ public class AddCampActivity extends AppCompatActivity implements
     private EditText campWeekTo;
     private EditText campHoursFrom;
     private EditText campHoursTo;
+    private Spinner mSpinner;
     private EditText campNotes;
 
     private Child mChildSelectedInfo;
@@ -128,6 +129,8 @@ public class AddCampActivity extends AppCompatActivity implements
         btnGetStartTime=findViewById(R.id.btn_startTime);
         btnGetEndTime=findViewById(R.id.btn_endTime);
         campHoursTo = findViewById(R.id.hrsToInput);
+        mSpinner = findViewById(R.id.hasLunch_spinner);
+
         campNotes = findViewById(R.id.notesInput);
 
 
@@ -169,9 +172,7 @@ public class AddCampActivity extends AppCompatActivity implements
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-
-                            campWeekFrom.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
+                            campWeekFrom.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
@@ -192,9 +193,7 @@ public class AddCampActivity extends AppCompatActivity implements
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-
-                            campWeekTo.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
+                            campWeekTo.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
@@ -211,14 +210,10 @@ public class AddCampActivity extends AppCompatActivity implements
             // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
-
                         @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute){
                             campHoursFrom.setText(hourOfDay + ":" + minute);
-                        }
-                    }, mHour, mMinute, false);
+                        }}, mHour, mMinute, false);
             timePickerDialog.show();
         }
 
@@ -230,15 +225,10 @@ public class AddCampActivity extends AppCompatActivity implements
             mMinute = c.get(Calendar.MINUTE);
 
             // Launch Time Picker Dialog
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                    new TimePickerDialog.OnTimeSetListener() {
-
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-
-                            campHoursTo.setText(hourOfDay + ":" + minute);
-                        }
+                                              int minute) { campHoursTo.setText(hourOfDay + ":" + minute);}
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
@@ -252,7 +242,7 @@ public class AddCampActivity extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         if(mCampInfo != null) {
-            titlePage.setText("Edit Camp");
+            titlePage.setText(getString(R.string.title_edit_camp));
             campName.setEnabled(false);
 
             DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
@@ -278,6 +268,7 @@ public class AddCampActivity extends AppCompatActivity implements
                             mCampInfo.setWeekTo(ds.child("weekTo").getValue(String.class));
                             mCampInfo.setHrsFrom(ds.child("hrsFrom").getValue(String.class));
                             mCampInfo.setHrsTo(ds.child("hrsTo").getValue(String.class));
+                            mCampInfo.setProvidesLunch(ds.child("providesLunch").getValue(String.class));
                             mCampInfo.setNotes(ds.child("notes").getValue(String.class));
 
                         }
@@ -295,9 +286,15 @@ public class AddCampActivity extends AppCompatActivity implements
                     campWeekTo.setText(mCampInfo.getWeekTo());
                     campHoursFrom.setText(mCampInfo.getHrsFrom());
                     campHoursTo.setText(mCampInfo.getHrsTo());
+                    String compareValue = mCampInfo.getProvidesLunch();
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(AddCampActivity.this, R.array.hasLunch_array, android.R.layout.simple_spinner_item);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mSpinner.setAdapter(adapter);
+                    if (compareValue != null) {
+                        int spinnerPosition = adapter.getPosition(compareValue);
+                        mSpinner.setSelection(spinnerPosition);
+                    }
                     campNotes.setText(mCampInfo.getNotes());
-
-
                 }
 
                 @Override
@@ -322,67 +319,57 @@ public class AddCampActivity extends AppCompatActivity implements
         //validate first then add or edit
         ValidateTor validateTor = new ValidateTor();
         mIsValid = true;
-
+        String mFieldEmptyText = getString(R.string.validate_empty_field);
 
         // Check if password field is empty
         if (validateTor.isEmpty(campName.getText().toString())) {
-            campName.setError("Field is empty!");
+            campName.setError(mFieldEmptyText);
             mIsValid = false;
         }
-
 
         if (validateTor.isEmpty(campContact.getText().toString())) {
-            campContact.setError("Field is empty!");
+            campContact.setError(mFieldEmptyText);
             mIsValid = false;
         }
-
-
 
         if (validateTor.isEmpty(campPhone.getText().toString())) {
-            campPhone.setError("Field is empty!");
+            campPhone.setError(mFieldEmptyText);
             mIsValid = false;
         }
-
-
 
         if (validateTor.isEmpty(campStreet.getText().toString())) {
-            campStreet.setError("Field is empty!");
+            campStreet.setError(mFieldEmptyText);
             mIsValid = false;
         }
 
-
-
         if (validateTor.isEmpty(campCity.getText().toString())) {
-            campCity.setError("Field is empty!");
+            campCity.setError(mFieldEmptyText);
             mIsValid = false;
         }
         if (validateTor.isEmpty(campState.getText().toString())) {
-            campState.setError("Field is empty!");
+            campState.setError(mFieldEmptyText);
             mIsValid = false;
         }
         if (validateTor.isEmpty(campZip.getText().toString())) {
-            campZip.setError("Field is empty!");
+            campZip.setError(mFieldEmptyText);
             mIsValid = false;
         }
         if (validateTor.isEmpty(campWeekFrom.getText().toString())) {
-            campWeekFrom.setError("Field is empty!");
+            campWeekFrom.setError(mFieldEmptyText);
             mIsValid = false;
         }
         if (validateTor.isEmpty(campWeekTo.getText().toString())) {
-            campWeekTo.setError("Field is empty!");
+            campWeekTo.setError(mFieldEmptyText);
             mIsValid = false;
         }
         if (validateTor.isEmpty(campHoursFrom.getText().toString())) {
-            campHoursFrom.setError("Field is empty!");
+            campHoursFrom.setError(mFieldEmptyText);
             mIsValid = false;
         }
         if (validateTor.isEmpty(campHoursTo.getText().toString())) {
-            campHoursTo.setError("Field is empty!");
+            campHoursTo.setError(mFieldEmptyText);
             mIsValid = false;
         }
-
-
-
 
 
         if(mIsValid){
@@ -404,7 +391,6 @@ public class AddCampActivity extends AppCompatActivity implements
 
         if(mCampInfo != null) {
            //EDIT
-           // campInfoReference.child(mCampInfo.getCampName()).child("campName").setValue(campName.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("contact").setValue(campContact.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("phone").setValue(campPhone.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("street").setValue(campStreet.getText().toString());
@@ -415,7 +401,13 @@ public class AddCampActivity extends AppCompatActivity implements
             campInfoReference.child(mCampInfo.getCampName()).child("weekTo").setValue(campWeekTo.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("hrsFrom").setValue(campHoursFrom.getText().toString());
             campInfoReference.child(mCampInfo.getCampName()).child("hrsTo").setValue(campHoursTo.getText().toString());
+
+            String hasLunch = mSpinner.getSelectedItem().toString();
+            campInfoReference.child(mCampInfo.getCampName()).child("providesLunch").setValue(hasLunch);
+
+
             campInfoReference.child(mCampInfo.getCampName()).child("notes").setValue(campNotes.getText().toString());
+            campskidReference.child(mChildSelectedInfo.getChildName()).child(mCampInfo.getCampName()).setValue(campWeekFrom.getText().toString());
 
         }else{
             //ADD
@@ -430,14 +422,16 @@ public class AddCampActivity extends AppCompatActivity implements
             String campWeekToData = campWeekTo.getText().toString();
             String campHoursFromData = campHoursFrom.getText().toString();
             String campHoursToData = campHoursTo.getText().toString();
+            String hasLunch = mSpinner.getSelectedItem().toString();
             String campNotesData = campNotes.getText().toString();
-            //TODO set hasLunch to the real dropdown value
-            Camp campInfoToAdd = new Camp(campNameData,campContactData,campPhoneData,campStreetData,campCityData,campStateData,campZipData,campWeekFromData,campWeekToData,campHoursFromData,campHoursToData,"YES",campNotesData);
-            // campInfoReference.push().setValue(campInfoToAdd);
+
+            Camp campInfoToAdd = new Camp(campNameData,campContactData,campPhoneData,campStreetData,campCityData,campStateData,campZipData,campWeekFromData,campWeekToData,campHoursFromData,campHoursToData,hasLunch,campNotesData);
+
             campInfoReference.child(campNameData).setValue(campInfoToAdd);
             String childName = mChildSelectedInfo.getChildName();
-            //TODO set the value of the camp to the start week
-            campskidReference.child(childName).child(campNameData).setValue(true);
+            campskidReference.child(childName).child(campNameData).setValue(campWeekFromData);
+
+
         }
 
 
