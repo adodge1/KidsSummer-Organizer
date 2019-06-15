@@ -51,9 +51,9 @@ public class Camp implements Parcelable {
 
     }
 
-    public Camp(String campName,String campContactName) {
+    public Camp(String campName,String campWeekFrom) {
         mName = campName;
-        mContact = campContactName;
+        mWeekFrom = campWeekFrom;
 
     }
 
@@ -75,7 +75,7 @@ public class Camp implements Parcelable {
         mNotes = campNotes;
 
     }
-    // Constructor
+
     public Camp( Parcel in){
 
         mName = in.readString();
