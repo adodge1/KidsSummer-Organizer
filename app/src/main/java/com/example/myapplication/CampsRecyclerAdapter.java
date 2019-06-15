@@ -74,7 +74,7 @@ public class CampsRecyclerAdapter extends RecyclerView.Adapter<CampsRecyclerAdap
     public void onBindViewHolder(CampsRecyclerAdapter.CampsRecyclerViewHolder holder, int position) {
         Camp child= mCamps.get(position);
         Button button = holder.mCampButton;
-        button.setText(child.getCampName());
+        button.setText(child.getCampName() +"\n"+ child.getWeekFrom());
 
     }
 
