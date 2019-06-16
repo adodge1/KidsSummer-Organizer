@@ -3,9 +3,8 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.content.Context;
+
 
 import com.example.myapplication.Utils.FirebaseDBUtil;
 import com.example.myapplication.model.Child;
