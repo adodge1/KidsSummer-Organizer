@@ -26,6 +26,11 @@ public class Child implements Parcelable {
         mAge = age;
     }
 
+    public Child(  String name){
+
+        mName = name;
+
+    }
 
 
     public String getChildName() {
