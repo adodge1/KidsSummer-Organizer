@@ -11,8 +11,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-
 import com.example.myapplication.R;
+
+
 
 public class WidgetProvider extends AppWidgetProvider {
 
@@ -26,8 +27,8 @@ public class WidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(WIDGET_TOAST_ACTION)){
-            String  listItem = intent.getStringExtra(WIDGET_KEY_ITEM);
-            Toast.makeText(context,listItem,Toast.LENGTH_SHORT).show();
+            final String  kidsName = intent.getStringExtra(WIDGET_KEY_ITEM);
+            Toast.makeText(context,kidsName,Toast.LENGTH_SHORT).show();
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE); //--> to listen to the widget itself and not the items
         }
         super.onReceive(context, intent);
@@ -57,8 +58,8 @@ public class WidgetProvider extends AppWidgetProvider {
 
             // need an intent
             Intent intent = new Intent(context, WidgetProvider.class);
-            //  String  listItem = intent.getStringExtra(WIDGET_KEY_ITEM);
-            // intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            //String  listItem = intent.getStringExtra(WIDGET_KEY_ITEM);
+             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             intent.setAction(WIDGET_TOAST_ACTION);
 
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,realAppWidgetIds);
@@ -70,11 +71,14 @@ public class WidgetProvider extends AppWidgetProvider {
 
 
 
-            appWidgetManager.updateAppWidget(id,remoteViews);
-            appWidgetManager.notifyAppWidgetViewDataChanged(id, R.id.widget_lv);
 
+            appWidgetManager.notifyAppWidgetViewDataChanged(id, R.id.widget_lv);
+            appWidgetManager.updateAppWidget(id,remoteViews);
 
 
         }
     }
+
+
+
 }
