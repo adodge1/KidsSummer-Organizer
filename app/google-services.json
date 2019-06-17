@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "187144261861",
+    "firebase_url": "https://kidssummerorganizer.firebaseio.com",
+    "project_id": "kidssummerorganizer",
+    "storage_bucket": "kidssummerorganizer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187144261861-i5gk1askkh9idll169al62ef3ahc3ukv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8oILitP8r0lCd9kFlBGLTlUoXwF5k6I4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187144261861-i5gk1askkh9idll169al62ef3ahc3ukv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
