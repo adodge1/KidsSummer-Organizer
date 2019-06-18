@@ -42,8 +42,18 @@
 
     <string name="camp_from_date">Week: from</string>
     <string name="camp_to_date">to</string>
+    <string name="camp_str_date">Start Date</string>
+    <string name="camp_end_date">End Date</string>
+
+
     <string name="camp_from_hrs">Hours: from</string>
     <string name="camp_to_hrs">to</string>
+    <string name="camp_strTime_hrs">Start Time</string>
+    <string name="camp_endTime_hrs">End Time</string>
+
+
+    <string name="alert_internet">You have no internet connection but this app will still sync your data</string>
+
 
 
 

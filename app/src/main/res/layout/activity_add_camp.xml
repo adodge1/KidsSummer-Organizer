@@ -246,7 +246,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/dateFromInput"
                     android:layout_marginLeft="135dp"
-                    android:text="Start Date"
+                    android:layout_marginStart="135dp"
+                    android:text="@string/camp_str_date"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_from_date"/>
 
@@ -288,7 +289,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/dateFromInput"
                     android:layout_marginLeft="45dp"
-                    android:text="End Date"
+                    android:layout_marginStart="45dp"
+                    android:text="@string/camp_end_date"
                     app:layout_constraintStart_toStartOf="@id/tv_to_date"
                     app:layout_constraintTop_toBottomOf="@id/dateToInput"/>
 
@@ -328,7 +330,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/hrsFromInput"
                     android:layout_marginLeft="135dp"
-                    android:text="Start Time"
+                    android:layout_marginStart="135dp"
+                    android:text="@string/camp_strTime_hrs"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_from_hrs"/>
 
@@ -370,7 +373,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/hrsToInput"
                     android:layout_marginLeft="45dp"
-                    android:text="End Time"
+                    android:layout_marginStart="45dp"
+                    android:text="@string/camp_endTime_hrs"
                     app:layout_constraintStart_toStartOf="@id/tv_to_hrs"
                     app:layout_constraintTop_toBottomOf="@id/hrsToInput"/>
 
