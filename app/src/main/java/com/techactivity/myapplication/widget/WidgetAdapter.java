@@ -1,4 +1,4 @@
-package com.example.myapplication.widget;
+package com.techactivity.myapplication.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -10,10 +10,10 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.example.myapplication.R;
-import com.example.myapplication.Utils.FirebaseDBUtil;
-import com.example.myapplication.model.Camp;
-import com.example.myapplication.model.Child;
+import com.techactivity.myapplication.R;
+import com.techactivity.myapplication.Utils.FirebaseDBUtil;
+import com.techactivity.myapplication.model.Camp;
+import com.techactivity.myapplication.model.Child;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

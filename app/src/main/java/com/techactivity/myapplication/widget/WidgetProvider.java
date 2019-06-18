@@ -1,4 +1,4 @@
-package com.example.myapplication.widget;
+package com.techactivity.myapplication.widget;
 
 //https://stackoverflow.com/questions/21337220/get-data-from-database-in-android-widget
 //https://stackoverflow.com/questions/51973927/android-how-to-access-room-database-from-widget
@@ -11,14 +11,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-import com.example.myapplication.R;
+import com.techactivity.myapplication.R;
 
 
 
 public class WidgetProvider extends AppWidgetProvider {
 
-    public static final String WIDGET_KEY_ITEM = "com.example.widget.WIDGET_KEY_ITEM";
-    public static final String WIDGET_TOAST_ACTION ="com.example.widget.WIDGET_TOAST_ACTION";
+    public static final String WIDGET_KEY_ITEM = "com.techactivity.widget.WIDGET_KEY_ITEM";
+    public static final String WIDGET_TOAST_ACTION ="com.techactivity.widget.WIDGET_TOAST_ACTION";
 
 
 

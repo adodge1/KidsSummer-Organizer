@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.techactivity.myapplication;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.myapplication.model.Camp;
+import com.techactivity.myapplication.model.Camp;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class CampsRecyclerAdapter extends RecyclerView.Adapter<CampsRecyclerAdap
         public void onClick(View view) {
             // Get the item clicked
             Camp myCampSelected = mCamps.get(getAdapterPosition());
-            // Then you can do any actions on it, for example:
+            // Then you can do any actions on it, for techactivity:
             mClickHandler.onClick(myCampSelected);
         }
 

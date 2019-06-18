@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.myapplication">
+    package="com.techactivity.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,7 +18,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <!--https://teamtreehouse.com/library/seeing-the-widget-->
-        <receiver android:name=".widget.WidgetProvider">
+        <receiver android:name="com.techactivity.myapplication.widget.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -26,31 +26,31 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info"/>
         </receiver>
-        <service android:name=".widget.WidgetService"
+        <service android:name="com.techactivity.myapplication.widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.techactivity.myapplication.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddChildActivity">
+        <activity android:name="com.techactivity.myapplication.AddChildActivity">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value="com.techactivity.myapplication.MainActivity"/>
         </activity>
-        <activity android:name=".DetailActivityChild">
+        <activity android:name="com.techactivity.myapplication.DetailActivityChild">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value="com.techactivity.myapplication.MainActivity"/>
         </activity>
-        <activity android:name=".AddCampActivity" android:windowSoftInputMode="stateVisible|adjustResize">
+        <activity android:name="com.techactivity.myapplication.AddCampActivity" android:windowSoftInputMode="stateVisible|adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailActivityChild"/>
+                android:value="com.techactivity.myapplication.DetailActivityChild"/>
         </activity>
     </application>
 

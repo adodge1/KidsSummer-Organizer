@@ -1,4 +1,4 @@
-package com.example.myapplication.widget;
+package com.techactivity.myapplication.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;

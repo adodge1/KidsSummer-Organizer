@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.techactivity.myapplication;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.myapplication.model.Child;
+import com.techactivity.myapplication.model.Child;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class ChildrenRecyclerAdapter extends RecyclerView.Adapter<ChildrenRecycl
         public void onClick(View view) {
             // Get the item clicked
             Child myChildSelected = mChildren.get(getAdapterPosition());
-            // Then you can do any actions on it, for example:
+            // Then you can do any actions on it, for techactivity:
             mClickHandler.onClick(myChildSelected);
         }
 

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.techactivity.myapplication;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 
 
-import com.example.myapplication.Utils.FirebaseDBUtil;
-import com.example.myapplication.model.Child;
+import com.techactivity.myapplication.Utils.FirebaseDBUtil;
+import com.techactivity.myapplication.model.Child;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.raywenderlich.android.validatetor.ValidateTor;
