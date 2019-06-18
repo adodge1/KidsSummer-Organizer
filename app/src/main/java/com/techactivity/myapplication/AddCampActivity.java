@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.techactivity.myapplication;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -16,10 +16,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.myapplication.Utils.FirebaseDBUtil;
-import com.example.myapplication.model.Camp;
+import com.techactivity.myapplication.Utils.FirebaseDBUtil;
+import com.techactivity.myapplication.model.Camp;
 
-import com.example.myapplication.model.Child;
+import com.techactivity.myapplication.model.Child;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
