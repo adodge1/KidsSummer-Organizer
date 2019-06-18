@@ -2,14 +2,19 @@ package com.techactivity.myapplication;
 
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import com.techactivity.myapplication.Utils.FirebaseDBUtil;
+import com.techactivity.myapplication.Utils.InternetCheck;
 import com.techactivity.myapplication.model.Child;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,11 +30,13 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
     private ValueEventListener valueEventListener;
     private ArrayList<Child> children = new ArrayList<>();
     private ChildrenRecyclerAdapter mChildAdapter;
-
+    private Boolean mHasInternet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         DatabaseReference rootRef = FirebaseDBUtil.getDatabase().getReference();
          childrenRef = rootRef.child("kids");
         childrenRef.keepSynced(true);
@@ -53,10 +60,6 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
     @Override
     protected void onStart() {
         super.onStart();
-
-
-
-
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,12 +75,20 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
                 }
             }
 
-
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
+
+        new InternetCheck(new InternetCheck.Consumer() {
+            @Override
+            public void accept(Boolean connected) {
+                if (connected) {
+                    Log.d("TAG", "Internet is connected");
+                } else {
+                    Toast.makeText(MainActivity.this,"No Internet detected ,this app has Offline Capabilities Enabled :)", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         childrenRef.addValueEventListener(valueEventListener);
 
@@ -95,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements ChildrenRecyclerA
 
     @Override
     public void onClick(Child selectedChild) {
+
+
+
+
        // String name = selectedChild.getChildName();
         // Toast.makeText(this, "Item Clicked"+name, Toast.LENGTH_LONG).show();
         Intent intentToStartDetailActivity = new Intent(MainActivity.this, DetailActivityChild.class);

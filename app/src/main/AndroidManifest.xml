@@ -4,9 +4,12 @@
     package="com.techactivity.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--to check network connectivity:https://www.android-examples.com/check-internet-connection-in-android-programmatically/-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:allowBackup="true"
