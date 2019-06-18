@@ -79,8 +79,7 @@ public class ChildrenRecyclerAdapter extends RecyclerView.Adapter<ChildrenRecycl
 
     @Override
     public int getItemCount() {
-        if (null == mChildren) return 0;
-        return mChildren.size();
+        return (mChildren != null) ?mChildren.size(): 0;
     }
 
     public void setChildData (ArrayList<Child> childData){
